@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Titration Calculator</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 20px; }
+        input, button { margin: 5px; padding: 10px; }
+    </style>
+</head>
+<body>
+    <h2>Titration Value Calculator</h2>
+    <label>Consume of NaOH (mL): </label>
+    <input type="number" id="consume" step="any"><br>
+    
+    <label>Weight of Sample (g): </label>
+    <input type="number" id="weight" step="any"><br>
+    
+    <label>Calculation Type: </label>
+    <select id="calcType">
+        <option value="psa">PSA</option>
+        <option value="ttr">TTR</option>
+    </select><br>
+    
+    <button onclick="calculate()">Calculate</button>
+    <h3>Result: <span id="result">-</span></h3>
+    
+    <script>
+        function calculate() {
+            let consume = parseFloat(document.getElementById('consume').value);
+            let weight = parseFloat(document.getElementById('weight').value);
+            let calcType = document.getElementById('calcType').value;
+            let normality = 0.5048;
+            let factor = (calcType === 'psa') ? 5 : 10;
+            
+            if (!isNaN(consume) && !isNaN(weight) && weight > 0) {
+                let result = (consume * normality * factor) / weight;
+                document.getElementById('result').innerText = result.toFixed(2);
+            } else {
+                alert('Please enter valid values!');
+            }
+        }
+    </script>
+</body>
+</html>
